@@ -20,19 +20,15 @@ feature {NONE} -- Initialization
 			--| Add your code here
 		end
 
-feature {NONE} -- External
+feature {NONE} -- Implementation
 
-	c_new_eiffel_xpcom_wrapper
-			-- Create a new Eiffel XPCOM wrapper object
-		external
-			"C++ inline use <eiffel_xpcom_wrapper.cpp>"
-		alias
-			"[
-			{
-				int l_test;
-			}
-			]"
-		end
+	eiffel_wrapper: NS_EIFFEL_WRAPPER
+			-- Main Eiffel XPCOM wrapper
 
+	moziila_factory: NS_MOZILLA_FACTORY
+			--
+
+	mozilla: NS_MOZILLA
+			--
 
 end
