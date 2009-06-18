@@ -7,11 +7,12 @@
 		</option>
 		<external_include location="$XPCOM_SDK\include\xpcom"/>
 		<external_include location="$XPCOM_SDK\sdk\include"/>
-		<external_include location=".\"/>
+		<external_include location="C:\Users\Administrator\Eiffel_Projects\eiffel_xpcom"/>
 		<external_object location="$XPCOM_SDK\lib\xpcomglue_s.lib"/>
 		<external_object location="$XPCOM_SDK\lib\xpcom.lib"/>
-		<precompile name="base_pre" location="$ISE_PRECOMP\base.ecf"/>
-		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<precompile name="base-safe_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
+		<library name="base-safe" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
+		<library name="wel-safe" location="$ISE_LIBRARY\library\wel\wel-safe.ecf"/>
 		<cluster name="eiifel_xpcom" location=".\" recursive="true">
 			<file_rule>
 				<exclude>/EIFGENs$</exclude>
