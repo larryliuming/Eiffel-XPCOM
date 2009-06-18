@@ -31,4 +31,7 @@ feature {NONE} -- Implementation
 	mozilla: NS_MOZILLA
 			--
 
+	gre_version_range: NS_GRE_VERSION_RANGE
+			--
+
 end
