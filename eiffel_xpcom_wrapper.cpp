@@ -16,13 +16,4 @@
 #include "nsServiceManagerUtils.h"
 #include "nsIInterfaceInfoManager.h"
 
-nsresult new_eiffel_xpcom_wrapper (nsISupports* aXPCOMObject,
-                        const nsIID& aIID, EIF_POINTER aObjectLoader,
-                        EIF_POINTER* aResult)
 
-{
-	 nsCOMPtr<nsIInterfaceInfoManager> l_interface_manager (do_GetService(NS_INTERFACEINFOMANAGER_SERVICE_CONTRACTID));
-	 NS_ASSERTION(l_interface_manager, "Failed to get InterfaceInfoManager");
-	 if (!l_interface_manager)
-	  return NS_ERROR_FAILURE;
-}
