@@ -10,6 +10,7 @@ class
 	NS_GRE_VERSION_RANGE
 
 create
+	make
 
 feature {NONE} -- Initialization
 
@@ -26,10 +27,22 @@ feature {NONE} -- Initialization
 
 feature -- Query
 
-	is_valid (a_version: STRING): BOOLEAN
-			-- Check if `a_version' is valid
+	is_valid (a_version: STRING_GENERAL): BOOLEAN
+			-- Check if `a_version' is valid in current range
 		do
-			check not_implemented: False end
+			if lower_inclusive then
+				Result := lower.as_string_32 <= a_version.as_string_32
+			else
+				Result := lower.as_string_32 < a_version.as_string_32
+			end
+
+			if Result then
+				if upper_inclusive then
+					Result := upper.as_string_32 >= a_version.as_string_32
+				else
+					Result := upper.as_string_32 > a_version.as_string_32
+				end
+			end
 		end
 
 feature {NONE} -- Implementation

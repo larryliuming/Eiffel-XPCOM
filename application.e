@@ -16,8 +16,14 @@ feature {NONE} -- Initialization
 
 	make
 			-- Run application.
+		local
+			l_gre_path: FILE_NAME
 		do
-			--| Add your code here
+			create moziila_factory
+			mozilla := moziila_factory.mozilla_singleton
+			create gre_version_range.make ("1.9.0", true, "2.0", false)
+
+			l_gre_path := mozilla.get_gre_path_with_properties (<<gre_version_range>>, void)
 		end
 
 feature {NONE} -- Implementation

@@ -11,9 +11,15 @@ class
 feature -- Factory methods
 
 	mozilla_singleton: NS_MOZILLA
-			-- Get mozilla singleton 
+			-- Get mozilla singleton
 		do
 			Result := mozilla_instance_cell.item
+			if Result = Void then
+				create Result
+				mozilla_instance_cell.put (Result)
+			end
+		ensure
+			not_void: Result /= Void
 		end
 
 feature {NONE} -- Implementation
