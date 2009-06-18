@@ -11,6 +11,7 @@
 		<external_object location="$XPCOM_SDK\lib\xpcomglue_s.lib"/>
 		<external_object location="$XPCOM_SDK\lib\xpcom.lib"/>
 		<precompile name="base-safe_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
+		<library name="api_wrapper" location="$ISE_LIBRARY\library\api_wrapper\api_wrapper-safe.ecf"/>
 		<library name="base-safe" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="wel-safe" location="$ISE_LIBRARY\library\wel\wel-safe.ecf"/>
 		<cluster name="eiifel_xpcom" location=".\" recursive="true">
