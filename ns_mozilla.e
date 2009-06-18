@@ -42,6 +42,12 @@ feature -- Initialization
 
 feature -- Command
 
+	init_embedding
+			--
+		do
+
+		end
+
 feature -- Query
 
 	get_GRE_path_with_properties (a_versions: ARRAY [NS_GRE_VERSION_RANGE]; a_properties: HASH_TABLE [STRING_GENERAL, STRING_GENERAL]): FILE_NAME
@@ -141,8 +147,6 @@ feature {NONE} -- Implementation
 			l_reg: WEL_REGISTRY
 			l_sub_key: WEL_REGISTRY_KEY
 			l_p, l_sub_p: POINTER
-			l_key: WEL_REGISTRY_KEY_VALUE
-			l_major_version: STRING
 			l_sub_key_max, l_sub_key_count: INTEGER
 			l_versions_max, l_versions_count: INTEGER
 			l_version_range: NS_GRE_VERSION_RANGE
@@ -150,7 +154,6 @@ feature {NONE} -- Implementation
 			create l_reg
 			l_p := l_reg.open_key_with_access (a_key, {WEL_REGISTRY_ACCESS_MODE}.Key_read)
 			if l_p /= default_pointer then
-
 				from
 					l_sub_key_max := l_reg.number_of_subkeys (l_p)
 				until
@@ -167,7 +170,7 @@ feature {NONE} -- Implementation
 							l_version_range := a_versions.item (l_versions_count)
 							if l_version_range.is_valid (l_sub_key.name) then
 								l_sub_p := l_reg.open_key_with_access (a_key.as_string_32 + "\\" + l_sub_key.name.as_string_32, {WEL_REGISTRY_ACCESS_MODE}.Key_read)
-								if l_sub_p /= Void then
+								if l_sub_p /= default_pointer then
 									Result := l_reg.key_value (l_sub_p, "GreHome").string_value
 									l_reg.close_key (l_sub_p)
 								end
@@ -183,4 +186,11 @@ feature {NONE} -- Implementation
 				l_reg.close_key (l_p)
 			end
 		end
+
+	api_loader: DYNAMIC_MODULE
+			-- DLL/So file loader for {NS_GRE} APIs
+		once
+			create Result.make ("eiffelxpcom")
+		end
+
 end
