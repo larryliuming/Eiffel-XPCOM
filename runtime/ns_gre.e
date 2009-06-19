@@ -19,7 +19,7 @@ feature -- Command
 			l_result: like cpp_init_embedding
 		do
 			check not_fully_implemented: False end
-			l_result := cpp_init_embedding (a_lib_xul_directory, a_app_directory, a_app_dir_provider)
+			l_result := cpp_init_embedding (a_lib_xul_directory, a_app_directory, $Current, $get_file, $get_files)
 		end
 
 	term_Embedding
@@ -40,15 +40,31 @@ feature -- Command
 
 		end
 
+feature {NONE} -- Eiffel function C callbacks
+
+	get_file (a_file_path: TYPED_POINTER [POINTER])
+			-- Callback function used by C++ ns_directory_service_provider::GetFile
+			-- `a_file_path's item type is C char*
+		do
+
+		end
+
+	get_files (a_files_path: TYPED_POINTER [POINTER])
+			-- Callback function used by C++ ns_directory_service_provider::GetFiles
+			-- `a_files_path's item type is C char*[]
+		do
+
+		end
+
 feature {NONE} -- C externals
 
-	cpp_init_embedding (a_lib_xul_directory, a_app_directory: POINTER; a_app_dir_provider: POINTER): NATURAL
+	cpp_init_embedding (a_lib_xul_directory, a_app_directory: POINTER; a_current_object, a_get_file_function, a_get_files_function: POINTER): NATURAL
 			-- `a_lib_xul_directory' is C char*
 			-- `a_app_directory' is C char*
 			-- Learning from
 			-- C:\xpcom\firefox-3.0.9-source\mozilla\extensions\java\xpcom\bin\nsJavaInterfaces.cpp InitEmbedding_Impl
 		external
-			"C++ inline use <eiffel_xpcom_wrapper.cpp>"
+			"C++ inline use <ns_directory_service_provider.h>"
 		alias
 			"[
 			{
@@ -56,25 +72,27 @@ feature {NONE} -- C externals
 				
 				// create an nsILocalFile from given `a_lib_xul_directory'
   				nsCOMPtr<nsILocalFile> l_libXULDir;
-  				nsString* l_str = new nsString($a_lib_xul_directory);
-  				l_result := NS_NewLocalFile(*l_str, false, &l_libXULDir);
+  				PRUnichar* l_char = (PRUnichar*) $a_lib_xul_directory;
+  				nsString* l_str = new nsString(l_char);
+  				l_result = NS_NewLocalFile(*l_str, false, getter_AddRefs(l_libXULDir));
   				delete l_str;
   				
+  				l_char = (PRUnichar*) $a_app_directory;
+  				l_str = new nsString(l_char);
   				nsCOMPtr<nsILocalFile> l_appDir;
-  				l_str = new nsString($a_app_directory);
-  				l_result := NS_NewLocalFile(*l_str, false, &l_appDir;);  				
+  				l_result = NS_NewLocalFile(*l_str, false, getter_AddRefs(l_appDir));  				
   				delete l_str;
   				
-  				// create nsAppFileLocProviderProxy from given ... FIXME, need implemente a Eiffel_app_dir_provider
-  				// like C:\xpcom\firefox-3.0.9-source\mozilla\extensions\java\xpcom\src\nsAppFileLocProviderProxy.cpp
-  				nsCOMPtr<nsIDirectoryServiceProvider> l_provider;
-			    l_result = NS_NewAppFileLocProviderProxy($a_app_dir_provider,
-			                                       getter_AddRefs(l_provider;));  				
-  				NS_ENSURE_SUCCESS(l_result, l_result);
-  				
+  				// create ns_eiffel_directory_service_provider from given data
+  				nsCOMPtr<ns_eiffel_directory_service_provider> l_provider =
+						(new ns_eiffel_directory_service_provider ($a_get_file_function,
+																			$a_get_files_function,
+																			$a_current_object));  				
+						
+  				NS_ENSURE_SUCCESS(l_result, l_result);  				
   				
   				// init libXUL
-  				return XRE_InitEmbedding(libXULDir, appDir, provider, nsnull, 0);
+  				return XRE_InitEmbedding(l_libXULDir, l_appDir, l_provider, nsnull, 0);
 			}
 			]"
 		end

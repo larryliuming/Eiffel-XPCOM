@@ -8,8 +8,13 @@
 		<external_include location="$XPCOM_SDK\include\xpcom"/>
 		<external_include location="$XPCOM_SDK\sdk\include"/>
 		<external_include location="C:\Users\Administrator\Eiffel_Projects\eiffel_xpcom"/>
+		<external_include location="C:\Users\Administrator\Eiffel_Projects\eiffel_xpcom\runtime"/>
+		<external_include location="$XPCOM_SDK\include\string"/>
+		<external_include location="$XPCOM_SDK\include\xulapp"/>
 		<external_object location="$XPCOM_SDK\lib\xpcomglue_s.lib"/>
 		<external_object location="$XPCOM_SDK\lib\xpcom.lib"/>
+		<external_object location="$XPCOM_SDK\lib\xul.lib"/>
+		<external_object location="$XPCOM_SDK\lib\embed_base_s.lib"/>
 		<precompile name="base-safe_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="api_wrapper" location="$ISE_LIBRARY\library\api_wrapper\api_wrapper-safe.ecf"/>
 		<library name="base-safe" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>

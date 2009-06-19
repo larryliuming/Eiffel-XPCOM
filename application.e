@@ -40,4 +40,7 @@ feature {NONE} -- Implementation
 	gre_version_range: NS_GRE_VERSION_RANGE
 			--
 
+	gre: NS_GRE
+			--
+			
 end
