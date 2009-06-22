@@ -28,9 +28,6 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Implementation
 
-	eiffel_wrapper: NS_EIFFEL_WRAPPER
-			-- Main Eiffel XPCOM wrapper
-
 	moziila_factory: NS_MOZILLA_FACTORY
 			--
 
@@ -40,7 +37,4 @@ feature {NONE} -- Implementation
 	gre_version_range: NS_GRE_VERSION_RANGE
 			--
 
-	gre: NS_GRE
-			--
-			
 end

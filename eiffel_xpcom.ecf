@@ -8,7 +8,6 @@
 		<external_include location="$XPCOM_SDK\include\xpcom"/>
 		<external_include location="$XPCOM_SDK\sdk\include"/>
 		<external_include location="C:\Users\Administrator\Eiffel_Projects\eiffel_xpcom"/>
-		<external_include location="C:\Users\Administrator\Eiffel_Projects\eiffel_xpcom\runtime"/>
 		<external_include location="$XPCOM_SDK\include\string"/>
 		<external_include location="$XPCOM_SDK\include\xulapp"/>
 		<external_object location="$XPCOM_SDK\lib\xpcomglue_s.lib"/>
@@ -25,6 +24,7 @@
 				<exclude>/.svn$</exclude>
 				<exclude>/CVS$</exclude>
 				<exclude>/.git$</exclude>
+				<exclude>/runtime$</exclude>
 			</file_rule>
 		</cluster>
 	</target>

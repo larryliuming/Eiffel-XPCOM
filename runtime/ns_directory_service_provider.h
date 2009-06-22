@@ -1,12 +1,9 @@
-//Only Eiffel XPCOM runtime need MOZILLA_INTERNAL_API
-#define MOZILLA_INTERNAL_API 
-
 #ifndef _ns_directory_service_provider_h_
 #define _ns_directory_service_provider_h_
 
-#include "eiffel_xpcom_wrapper.cpp"
+#include "ns_eiffel_xpcom_internal.h"
 #include "nsIDirectoryService.h"
-#include "nsString.h"
+#include "nsStringAPI.h"
 #include "nsILocalFile.h"
 //for XRE_InitEmbedding
 #include "nsXULAppAPI.h"
@@ -94,10 +91,11 @@ ns_eiffel_directory_service_provider::GetFile(const char* aProp, PRBool* aIsPers
 #endif
 				&l_buff
 		  );
-  nsString* l_str = new nsString(l_buff);
+  nsAutoString l_str(l_buff);
+//  nsString* l_str = new nsString(l_buff);
 	
   nsCOMPtr<nsILocalFile> l_localFile;
-  nsresult l_result = NS_NewLocalFile(*l_str, false, getter_AddRefs(l_localFile));
+  nsresult l_result = NS_NewLocalFile(l_str, false, getter_AddRefs(l_localFile));
  
   if (NS_SUCCEEDED(l_result)) {
     return localFile->QueryInterface(NS_GET_IID(nsIFile), (void**)a_result);
@@ -145,10 +143,11 @@ public:
 
     if (l_item) {
 	const PRUnichar* l_buf = l_item;
-      	nsAString* l_path = new nsString(l_buf);
+	nsAutoString l_path (l_buf);
+   //  	nsAString* l_path;// = new nsString(l_buf);
 
 	nsCOMPtr<nsILocalFile> l_local_file;
-	rv = NS_NewLocalFile(*l_path, false, getter_AddRefs(l_local_file));
+	rv = NS_NewLocalFile(l_path, false, getter_AddRefs(l_local_file));
 
       if (NS_SUCCEEDED(rv)) {
         return l_local_file->QueryInterface(NS_GET_IID(nsIFile), (void**)aResult);
